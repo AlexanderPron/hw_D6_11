@@ -28,7 +28,7 @@ def book_increment(request):
         else:
             book = Book.objects.filter(id=book_id).first()
             if not book:
-                return redirect('/i')
+                return redirect('/')
             book.copy_count += 1
             book.save()
         return redirect('/')
