@@ -1,0 +1,14 @@
+.wrap{
+  width: 80%;
+  margin: 0 auto;
+}
+.head-title{
+  text-align: center;
+}
+ul{
+  display: flex;
+  justify-content: flex-end;
+}
+li{
+  margin-left: 20px;
+}

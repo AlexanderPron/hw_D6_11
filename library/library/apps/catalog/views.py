@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Book
+from .models import Book, PublishingHouse
 from django.template import loader
 from django.shortcuts import redirect
 
@@ -24,32 +24,40 @@ def book_increment(request):
     if request.method == 'POST':
         book_id = request.POST['id']
         if not book_id:
-            return redirect('/index/')
+            return redirect('/')
         else:
             book = Book.objects.filter(id=book_id).first()
             if not book:
-                return redirect('/index/')
+                return redirect('/i')
             book.copy_count += 1
             book.save()
-        return redirect('/index/')
+        return redirect('/')
     else:
-        return redirect('/index/')
+        return redirect('/')
 
 
 def book_decrement(request):
     if request.method == 'POST':
         book_id = request.POST['id']
         if not book_id:
-            return redirect('/index/')
+            return redirect('/')
         else:
             book = Book.objects.filter(id=book_id).first()
             if not book:
-                return redirect('/index/')
+                return redirect('/')
             if book.copy_count < 1:
                 book.copy_count = 0
             else:
                 book.copy_count -= 1
             book.save()
-        return redirect('/index/')
+        return redirect('/')
     else:
-        return redirect('/index/')
+        return redirect('/')
+
+def ph(request):
+    template = loader.get_template('publishing_house.html')
+    ph_list = PublishingHouse.objects.all()
+    data = {
+        "ph_list": ph_list,
+    }
+    return HttpResponse(template.render(data, request))

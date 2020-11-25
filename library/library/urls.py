@@ -17,12 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from catalog import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
-    path('', views.books_list),
-    path('index/', views.index),
-    path('index/book_increment/', views.book_increment),
-    path('index/book_decrement/', views.book_decrement),
-]
+    # path('', views.books_list),
+    # path('index/', views.index),
+    path('', views.index),
+    path('book_increment/', views.book_increment),
+    path('book_decrement/', views.book_decrement),
+    path('ph/', views.ph),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
