@@ -5,10 +5,10 @@
 .head-title{
   text-align: center;
 }
-ul{
+ul.head-nav{
   display: flex;
   justify-content: flex-end;
 }
-li{
+li.item-head-nav{
   margin-left: 20px;
 }
