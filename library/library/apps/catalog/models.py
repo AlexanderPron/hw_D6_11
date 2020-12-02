@@ -1,4 +1,5 @@
 from django.db import models  
+import uuid
 
 class Author(models.Model):  
   full_name = models.TextField(verbose_name="Автор")  
@@ -38,4 +39,29 @@ class Book(models.Model):
   class Meta:
     verbose_name = 'Книга'
     verbose_name_plural = 'Книги'
+  
+class Friend(models.Model):
+  friend_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  first_name = models.CharField(max_length=100, verbose_name="Имя")
+  last_name = models.CharField(max_length=100, verbose_name="Фамилия")
+  mail = models.EmailField(max_length=254, verbose_name="Почта")  
+  address = models.TextField(verbose_name="Адрес")  
+
+  def __str__(self):
+    return('{} {}'.format(self.last_name, self.first_name))
+  
+  class Meta:
+    verbose_name = 'Друг'
+    verbose_name_plural = 'Друзья'
+
+class BookInUse(models.Model):
+  book_isbn = models.ForeignKey(Book, on_delete=models.DO_NOTHING, verbose_name="Книга")
+  user_id = models.ForeignKey(Friend, on_delete=models.DO_NOTHING, verbose_name="Кто взял") 
+
+  def __str__(self):
+    return('{}'.format(self.book_isbn))
+  
+  class Meta:
+    verbose_name = 'В пользовании'
+    verbose_name_plural = 'В пользовании'
 
