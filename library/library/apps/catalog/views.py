@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Book, PublishingHouse
+from .models import Book, PublishingHouse, BookInUse, Friend
 from django.template import loader
 from django.shortcuts import redirect
 
@@ -59,5 +59,13 @@ def ph(request):
     ph_list = PublishingHouse.objects.all()
     data = {
         "ph_list": ph_list,
+    }
+    return HttpResponse(template.render(data, request))
+
+def bk(request):
+    template = loader.get_template('book_keeping.html')
+    bk_list = BookInUse.objects.all()
+    data = {
+        "bk_list": bk_list,
     }
     return HttpResponse(template.render(data, request))

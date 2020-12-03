@@ -1,5 +1,6 @@
 from django.db import models  
 import uuid
+from datetime import date
 
 class Author(models.Model):  
   full_name = models.TextField(verbose_name="Автор")  
@@ -55,8 +56,9 @@ class Friend(models.Model):
     verbose_name_plural = 'Друзья'
 
 class BookInUse(models.Model):
-  book_isbn = models.ForeignKey(Book, on_delete=models.DO_NOTHING, verbose_name="Книга")
-  user_id = models.ForeignKey(Friend, on_delete=models.DO_NOTHING, verbose_name="Кто взял") 
+  book_isbn = models.ForeignKey(Book, on_delete=models.DO_NOTHING, related_name='books', verbose_name="Книга")
+  user_id = models.ForeignKey(Friend, on_delete=models.DO_NOTHING, related_name='friends', verbose_name="Кто взял")
+  start_use_date = models.DateField(auto_now=False, auto_now_add=False, default= date.today, verbose_name="Дата выдачи")
 
   def __str__(self):
     return('{}'.format(self.book_isbn))

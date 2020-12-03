@@ -23,10 +23,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
-    # path('', views.books_list),
-    # path('index/', views.index),
     path('', views.index),
     path('book_increment/', views.book_increment),
     path('book_decrement/', views.book_decrement),
     path('ph/', views.ph),
+    path('bk/', views.bk),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
