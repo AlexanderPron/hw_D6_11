@@ -24,5 +24,5 @@ class FriendAdmin(admin.ModelAdmin):
 
 @admin.register(BookInUse)
 class BookInUseAdmin(admin.ModelAdmin):
-    list_display = ('book_isbn', 'user_id', 'start_use_date')
-    fields = ('book_isbn', 'user_id', 'start_use_date')
+    list_display = ('book_title', 'user_id', 'start_use_date')
+    fields = ('book_title', 'user_id', 'start_use_date')

@@ -31,7 +31,7 @@
                       <div style="overflow-y: scroll; overflow-x: hidden; max-height: 500px;">
                         <ul class="nav nav-list">
                             {% for bk in bk_list %}
-                                <li><a href="#" onclick="showInfo(`{{ bk.user_id }}`, `{{ bk.start_use_date }}`)">{{ bk.book_isbn}}</a></li>
+                                <li><a href="#" onclick="showInfo(`{{ bk.user_id }}`, `{{ bk.start_use_date }}`, `{{ bk.user_id.address }}`)">{{ bk.book_title }}(id записи: {{ bk.id }})</a></li>
                             {% endfor %}
                         </ul>
                       </div>
@@ -49,8 +49,8 @@
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script>
-        function showInfo(user_id, start_use_date) {
-          document.querySelector('#nav-tabContent').innerHTML = `Взял: <b>${user_id}</b></br>Дата: <b>${start_use_date}</b></br>Адрес: `;
+        function showInfo(user_id, start_use_date, address) {
+          document.querySelector('#nav-tabContent').innerHTML = `Взял: <b>${user_id}</b></br>Дата: <b>${start_use_date}</b></br>Адрес: <b>${address}</b>`;
         }
        </script>
 </body>

@@ -65,6 +65,7 @@ def ph(request):
 def bk(request):
     template = loader.get_template('book_keeping.html')
     bk_list = BookInUse.objects.all()
+    
     data = {
         "bk_list": bk_list,
     }
