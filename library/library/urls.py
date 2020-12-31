@@ -19,13 +19,16 @@ from django.conf.urls import include
 from catalog import views
 from django.conf import settings
 from django.conf.urls.static import static
+from catalog.views import BookEdit
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('', views.index, name='index'),
     path('book_increment/', views.book_increment),
     path('book_decrement/', views.book_decrement),
-    path('ph/', views.ph),
-    path('bk/', views.bk),
+    path('ph/', views.ph, name='ph'),
+    path('bk/', views.bk, name='bk'),
+    path('add/', BookEdit.as_view(), name='add-book'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

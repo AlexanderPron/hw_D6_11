@@ -33,9 +33,14 @@ class Book(models.Model):
   copy_count = models.SmallIntegerField(default=1, verbose_name="Копий")
   price = models.DecimalField(max_digits=8, decimal_places=2, default=0, verbose_name="Цена")
   ph_name = models.ForeignKey(PublishingHouse, on_delete=models.CASCADE, null=True, blank=True, related_name='books', verbose_name="Издательство")
-
+  book_img = models.ImageField(upload_to='book_pics/%Y/%m/%d', blank=True, verbose_name="Изображение")
   def __str__(self):
     return(self.title)
+  
+  @property
+  def pic_url(self):
+    if self.book_img and hasattr(self.book_img, 'url'):
+      return self.book_img.url
   
   class Meta:
     verbose_name = 'Книга'

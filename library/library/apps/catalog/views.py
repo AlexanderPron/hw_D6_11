@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book, PublishingHouse, BookInUse, Friend
+from catalog.forms import BookForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, FormView
 from django.template import loader
 from django.shortcuts import redirect
 
@@ -70,3 +73,9 @@ def bk(request):
         "bk_list": bk_list,
     }
     return HttpResponse(template.render(data, request))
+
+class BookEdit(CreateView):  
+    model = Book  
+    form_class = BookForm  
+    success_url = reverse_lazy('index')  
+    template_name = 'add_book.html'  
