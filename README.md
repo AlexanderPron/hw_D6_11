@@ -1,6 +1,6 @@
 # library
 Для запуска и проверки приложения:
-1) Скопируйте репозиторй: "git clone https://github.com/AlexanderPron/library.git"
+1) Скопируйте репозиторй: "git clone https://github.com/AlexanderPron/hw_D6_11.git"
 2) Создайте новую виртуальную среду окружения: "virtualenv library"
 3) Перейдите в каталог с проектом: "cd library"
 4) Активируйте виртуальную среду:  ". ./Scripts/activate" или "source ./Scripts/activate"
