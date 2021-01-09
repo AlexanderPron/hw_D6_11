@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Book, PublishingHouse, BookInUse, Friend
 from catalog.forms import BookForm
 from django.urls import reverse_lazy
@@ -14,11 +14,9 @@ def books_list(request):
 def index(request):
     template = loader.get_template('index.html')
     books = Book.objects.all()
-    my_range =[i for i in range(1,101)]
     biblio_data = {
         "title": "мою библиотеку",
         "books": books,
-        "my_range": my_range,
     }
     
     return HttpResponse(template.render(biblio_data, request))
@@ -74,8 +72,25 @@ def bk(request):
     }
     return HttpResponse(template.render(data, request))
 
-class BookEdit(CreateView):  
-    model = Book  
-    form_class = BookForm  
-    success_url = reverse_lazy('index')  
-    template_name = 'add_book.html'  
+# class BookEdit(UpdateView):  
+#     model = Book  
+#     form_class = BookForm  
+#     success_url = reverse_lazy('index')  
+#     template_name = 'update_book.html'  
+
+def book_add(request):
+    form = BookForm(request.POST or None)
+    if request.method == 'POST':
+        if 'create_single' in request.POST:
+            if form.is_valid():
+                book = form.save()
+                book.book_img = request.FILES['book_img']
+                book.save()
+                return HttpResponseRedirect(reverse_lazy('index'))
+        elif 'create_and_add' in request.POST:
+            if form.is_valid():
+                book = form.save()
+                book.book_img = request.FILES['book_img']
+                book.save()
+                return HttpResponseRedirect(reverse_lazy('add-book'))
+    return render(request, 'add_book.html', {'form': form})
